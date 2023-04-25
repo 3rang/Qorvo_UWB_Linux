@@ -1,11 +1,4 @@
-# Qorvo_UWB_Linux
-Qorvo UWB Module + RPi 4 (Any Linux based Host)
-
-
-
-
-
-# UWB Module Example Code
+# Qorvo_UWB_Linux Qorvo UWB Module + RPi 4 (Any Linux based Host)
 
 ## Project Description
 

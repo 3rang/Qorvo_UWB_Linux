@@ -40,7 +40,28 @@ Once you have the necessary hardware and software, you can clone the project rep
 | ex_uwb_simple_rx_pdoa | Simple reception with PDOA enabled | Under development |
 | ex_uwb_simple_rx_aes | Simple reception with AES decryption enabled
 
+# Project Structure 
 
+```
+.
+├── build
+├── CMakeLists.txt
+├── Dockerfile
+├── example
+│   └── ex_uwb_reading_dev_id
+│       ├── CMakeLists.txt
+│       └── read_device_id.c
+├── LICENSE
+├── main.c
+├── platform
+│   ├── CMakeLists.txt
+│   ├── inc
+│   │   └── spi.h
+│   └── src
+│       └── spi.c
+└── README.md
+
+```
 
 
 

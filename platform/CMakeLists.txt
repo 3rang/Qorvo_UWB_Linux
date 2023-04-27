@@ -1,10 +1,17 @@
-# Add the source files for the platform library
+# Add the SPI core directory
+add_subdirectory(spi_core)
+
+# Set the platform source files
 set(SOURCES
-    src/spi.c
+    spi_interface.c
 )
 
-# Create the platform library target
-add_library(spi SHARED ${SOURCES})
+# Add the platform library target
+add_library(platform ${SOURCES})
 
-# Set the include directories for the platform library
-target_include_directories(spi PUBLIC inc)
+# Link the platform library with the SPI core library
+target_link_libraries(platform PUBLIC spi_core)
+
+# Include the platform header files
+target_include_directories(platform PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+

@@ -33,5 +33,5 @@ set(SOURCES
 add_executable(MyExecutable ${SOURCES})
 
 # Link the executable with the spi library
-target_link_libraries(MyExecutable PUBLIC spi)
+target_link_libraries(MyExecutable PUBLIC spi_core)
 

@@ -38,7 +38,7 @@ Once you have the necessary hardware and software, you can clone the project rep
 | ex_uwb_rx_with_crystal_trim | Reception with crystal trimming enabled | Under development |
 | ex_uwb_simple_rx_sts_sdc | Simple reception with STS/SDC enabled | Under development |
 | ex_uwb_simple_rx_pdoa | Simple reception with PDOA enabled | Under development |
-| ex_uwb_simple_rx_aes | Simple reception with AES decryption enabled
+| ex_uwb_simple_rx_aes | Simple reception with AES decryption enabled | Under development |
 
 # Project Structure 
 

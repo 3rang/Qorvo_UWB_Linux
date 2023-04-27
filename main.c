@@ -8,8 +8,7 @@
 
 int main()
 {
-    spi_t spi;
-    const char *device = "/dev/spidev0.0";
+    //spi_t spi;
     unsigned char tx_data[] = {0x00, 0x00, 0x00, 0x00, 0x00};
     unsigned char rx_data[5] = {0};
     unsigned char *device_id;

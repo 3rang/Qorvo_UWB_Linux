@@ -99,12 +99,13 @@ The following table shows the wiring connections between the DWM3000EVB module a
 
 ## Hardware
 You will need two boards: a host board and a shield board --
+
 * Host board RPi4
 ![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/rpi4.PNG)
+
 * Host board NXP i.MX8M mini
 ![NXP i.MX8M mini](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/imx8.PNG)
-* Host board Rockchip
-![RockChip](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
+
 * DWM3000 arduino shield board.
 ![Qorvo DWM3000EVB](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
 

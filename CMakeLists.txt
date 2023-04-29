@@ -9,29 +9,25 @@ set(CMAKE_C_STANDARD 11)
 
 # Add the platform source directory
 add_subdirectory(platform)
+include_directories(platform)
 
 
+if(NOT DEFINED EXAMPLE)
+    set(EXAMPLE "ex_uwb_reading_dev_id" CACHE STRING "Name of the example subfolder to include")
+    message("Selected folder: ${EXAMPLE}")
+endif()
 
-set(EXAMPLE
-    ex_uwb_reading_dev_id
-)
+#add_subdirectory("example/${EXAMPLE}")
 
-foreach(EXAMPLE ${EXAMPLES})
-    # Add the library target for this example
-    add_subdirectory(example/${EXAMPLES})
-
-    # Link the example library to the main executable
-    target_link_libraries(MyExecutable PUBLIC ${EXAMPLES})
-endforeach()
 
 # Set the source files for the main executable
 set(SOURCES
     main.c
+    example/${EXAMPLE}/read_device_id.c
 )
 
 # Create the executable for the main program
-add_executable(MyExecutable ${SOURCES})
+add_executable(MyExecutable ${SOURCES} )
 
 # Link the executable with the spi library
 target_link_libraries(MyExecutable PUBLIC spi_core)
-

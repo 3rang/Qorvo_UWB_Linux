@@ -1,5 +1,8 @@
 #include "spi.h"
 
+spi_t spi;
+const char *device = "/dev/spidev0.0";
+
 void set_spi_speed_slow(void);
 
 void set_spi_speed_fast(void);

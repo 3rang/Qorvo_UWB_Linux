@@ -14,4 +14,3 @@ target_link_libraries(platform PUBLIC spi_core)
 
 # Include the platform header files
 target_include_directories(platform PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-

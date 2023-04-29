@@ -10,8 +10,6 @@ typedef struct {
     unsigned int speed_hz;
 } spi_t;
 
-spi_t spi;
-const char *device = "/dev/spidev0.0";
 
 int spi_init(spi_t* spi, const char* device, unsigned char mode, unsigned char bits_per_word, unsigned int speed_hz);
 

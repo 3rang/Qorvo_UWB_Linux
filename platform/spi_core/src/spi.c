@@ -5,9 +5,6 @@
 #include <linux/spi/spidev.h>
 #include "spi.h"
 
-
-
-
 int spi_init(spi_t* spi, const char* device, unsigned char mode, unsigned char bits_per_word, unsigned int speed_hz) {
     int ret;
 

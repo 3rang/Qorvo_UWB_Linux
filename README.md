@@ -19,7 +19,19 @@ To get started with this project, you will need the following hardware and softw
 
 Once you have the necessary hardware and software, you can clone the project repository and build the example code using the provided Makefile. The example code can be run on the Raspberry Pi 4, and should provide a basic demonstration of how to use the DWM3000EVB module for UWB ranging and positioning.
 
-# UWB Module Example Code
+## Hardware
+You will need two boards: a host board and a shield board --
+* Host board RPi4
+![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
+* Host board NXP i.MX8M mini
+![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
+* Host board Rockchip
+![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
+* DWM3000 arduino shield board.
+![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
+
+
+## UWB Module Example Code
 
 | Example Code | Description | Status |
 |--------------|-------------|--------|
@@ -40,25 +52,29 @@ Once you have the necessary hardware and software, you can clone the project rep
 | ex_uwb_simple_rx_pdoa | Simple reception with PDOA enabled | Under development |
 | ex_uwb_simple_rx_aes | Simple reception with AES decryption enabled | Under development |
 
-# Project Structure 
+## Project Structure 
 
-```
+```sh
 .
 ├── build
 ├── CMakeLists.txt
 ├── Dockerfile
 ├── example
 │   └── ex_uwb_reading_dev_id
-│       ├── CMakeLists.txt
-│       └── read_device_id.c
+│   └── ex_uwb_simple_tx
+│   └── ex_uwb_simple_rx
+│    ..
+│    ..
 ├── LICENSE
 ├── main.c
 ├── platform
 │   ├── CMakeLists.txt
-│   ├── inc
-│   │   └── spi.h
-│   └── src
-│       └── spi.c
+│   ├── spi_core
+│   │   ├── CMakeLists.txt
+│   │   ├── inc
+│   │   └── src
+│   ├── spi_interface.c
+│   └── spi_interface.h
 └── README.md
 
 ```
@@ -79,9 +95,24 @@ The following table shows the wiring connections between the DWM3000EVB module a
 | 3           | MOSI            | 19 (GPIO 10)       | SPI MOSI                  |
 | 4           | MISO            | 21 (GPIO 9)        | SPI MISO                  |
 | 5           | SCLK            | 23 (GPIO 11)       | SPI Clock                 |
+| 6           | CS              | 24 (GPIO 8)        | SPI Chip select           |
 
+## Hardware
+You will need two boards: a host board and a shield board --
+* Host board RPi4
+![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
+* Host board NXP i.MX8M mini
+![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
+* Host board Rockchip
+![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
+* DWM3000 arduino shield board.
+![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
 
 
 ## License
 
 This project is open-sourced under the MIT License. See the LICENSE file for more information.
+
+## Support me
+
+If you want to support me, you can buy me a coffee [buymeacoffee.com/3rang](www.edgex.one).

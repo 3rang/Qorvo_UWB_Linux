@@ -8,26 +8,29 @@ project(MyProject)
 set(CMAKE_C_STANDARD 11)
 
 # Add the platform source directory
-add_subdirectory(platform)
 include_directories(platform)
+include_directories(decadriver)
+
+add_subdirectory(platform)
+add_subdirectory(decadriver)
 
 
 if(NOT DEFINED EXAMPLE)
-    set(EXAMPLE "ex_uwb_reading_dev_id" CACHE STRING "Name of the example subfolder to include")
+	#set(EXAMPLE "ex_uwb_reading_dev_id" CACHE STRING "Name of the example subfolder to include")
+    set(EXAMPLE "ex_uwb_reading_dev" CACHE STRING "Name of the example subfolder to include")
     message("Selected folder: ${EXAMPLE}")
 endif()
-
-#add_subdirectory("example/${EXAMPLE}")
 
 
 # Set the source files for the main executable
 set(SOURCES
     main.c
-    example/${EXAMPLE}/read_device_id.c
+    #example/${EXAMPLE}/read_device_id.c
+    example/${EXAMPLE}/ex_uwb_reading_dev.c
 )
 
 # Create the executable for the main program
-add_executable(MyExecutable ${SOURCES} )
+add_executable(MyExecutable ${SOURCES})
 
 # Link the executable with the spi library
-target_link_libraries(MyExecutable PUBLIC spi_core)
+target_link_libraries(MyExecutable PUBLIC Q_DRIVER)

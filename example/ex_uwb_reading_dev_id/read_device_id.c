@@ -7,7 +7,6 @@ int app_main(spi_t spi)
 	unsigned char rx_data[5] = {0};
 
 
-
 	if (spi_transfer(&spi, tx_data, rx_data, sizeof(tx_data)) < 0) {
 		perror("Failed to perform SPI transaction");
 		spi_close(&spi);

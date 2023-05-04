@@ -2348,7 +2348,8 @@ void dwt_wakeup_ic(void);
  *
  * returns DWT_SUCCESS for success, or DWT_ERROR for error
  */
-extern int writetospiwithcrc(uint16_t headerLength, const uint8_t *headerBuffer, uint16_t bodylength, const uint8_t *bodyBuffer, uint8_t crc8);
+//extern int writetospiwithcrc(uint16_t headerLength, const uint8_t *headerBuffer, uint16_t bodylength, const uint8_t *bodyBuffer, uint8_t crc8);
+extern int writetospiwithcrc(uint16_t headerLength, const uint8_t *headerBuffer, uint32_t bodylength, const uint8_t *bodyBuffer);
 
 /*! ------------------------------------------------------------------------------------------------------------------
  * @brief

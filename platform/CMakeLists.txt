@@ -15,4 +15,4 @@ add_library(spi_interface SHARED ${SOURCES})
 target_link_libraries(spi_interface PUBLIC spi_core)
 
 # Include the platform header files
-target_include_directories(spi_interface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/spi_core/inc ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(spi_interface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/spi_core/inc ${CMAKE_CURRENT_SOURCE_DIR} )

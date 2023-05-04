@@ -7,6 +7,7 @@ int app_main()
 {
 int err;
 err = dwt_check_dev_id();
+
     if (err == DWT_SUCCESS) {
         printf("DEV ID OK");
     }

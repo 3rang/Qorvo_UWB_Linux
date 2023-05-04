@@ -19,17 +19,6 @@ To get started with this project, you will need the following hardware and softw
 
 Once you have the necessary hardware and software, you can clone the project repository and build the example code using the provided Makefile. The example code can be run on the Raspberry Pi 4, and should provide a basic demonstration of how to use the DWM3000EVB module for UWB ranging and positioning.
 
-## Hardware
-You will need two boards: a host board and a shield board --
-* Host board RPi4
-![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
-* Host board NXP i.MX8M mini
-![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
-* Host board Rockchip
-![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
-* DWM3000 arduino shield board.
-![Raspberry Pi 4](https://github.com/3rang/Qorvo_UWB_Linux/blob/v0.1/doc/pic_dwm3000evb.PNG)
-
 
 ## UWB Module Example Code
 

@@ -9,10 +9,10 @@ set(CMAKE_C_STANDARD 11)
 
 # Add the platform source directory
 include_directories(platform)
-include_directories(decadriver)
+include_directories(uwb_driver)
 
 add_subdirectory(platform)
-add_subdirectory(decadriver)
+add_subdirectory(uwb_driver)
 
 
 if(NOT DEFINED EXAMPLE)

@@ -7,6 +7,8 @@
 #include "spi_interface.h"
 
 
+int app_main(void);
+
 int main()
 {
 
@@ -15,7 +17,7 @@ int main()
 		return -1;
 	}
 
-	if(app_main()!=NULL)
+	if(app_main()!=0)
 	{
 		perror("Error : Example failed\n");
 	}

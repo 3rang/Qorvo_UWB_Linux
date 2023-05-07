@@ -3,6 +3,13 @@
 
 int app_main()
 {
+
+	int32_t apiVersion = uwb_apiversion();
+
+	// Print the API version
+	printf("UWB Driver API Version: %x\n", apiVersion);
+
+
 	uint32_t devId = uwb_readdevid();
 
 	// Print the device ID

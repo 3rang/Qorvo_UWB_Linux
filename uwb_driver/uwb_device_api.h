@@ -10,16 +10,21 @@ extern "C" {
 #include <stddef.h>
 
 
-#define DW3000_DRIVER_VERSION               0x040000
-#define DW3000_DEVICE_DRIVER_VER_STRING     "DW3000 C0 Device Driver Version 04.00.00"
+#define DRIVER_VERSION               0x040000
+#define DEVICE_DRIVER_VER_STRING     "DW3000 C0 Device Driver Version 00.02.00"
 
+
+
+
+#ifndef NEMBER_DEVICES
+#define NUMBER_DEVICES (1)
+#endif
 
 
 /* */
 #define DWT_SUCCESS (0)
 #define DWT_ERROR   (-1)
 
-#define DWT_TIME_UNITS      (1.0/499.2e6/128.0) //!< = 15.65e-12 s
 
 #define DWT_A0_DEV_ID       (0xDECA0300)        //!< DW3000 MPW A0 (non PDOA) silicon device ID
 #define DWT_A0_PDOA_DEV_ID  (0xDECA0310)        //!< DW3000 MPW A0 (with PDOA) silicon device ID
@@ -156,7 +161,7 @@ typedef enum
     DWT_SPI_CRC_MODE_NO = 0,    /* No CRC */
     DWT_SPI_CRC_MODE_WR,        /* This is used to enable SPI CRC check (the SPI CRC check will be enabled on DW3000 and CRC-8 added for SPI write transactions) */
     DWT_SPI_CRC_MODE_WRRD       /* This is used to optionally enable additional CRC check on the SPI read operations, while the CRC check on the SPI write operations is also enabled */
-}dwt_spi_crc_mode_e;
+}uwb_spi_crc_mode_e;
 
 
 // Defined constants for "mode" bit field parameter passed to dwt_setleds() function.
@@ -315,7 +320,7 @@ typedef struct
     uint16_t status_hi;   //initial value of register as ISR is entered, if relevant for that event type
     uint16_t datalength;  //length of frame
     uint8_t  rx_flags;    //RX frame flags, see above
-} dwt_cb_data_t;
+} uwb_cb_data_t;
 
 // Call-back type for SPI read error event (if the DW3000 generated CRC does not match the one calculated by the dwt_generatecrc8 function)
 typedef void(*dwt_spierrcb_t)(void);
@@ -647,13 +652,11 @@ typedef enum
 
 
 
-
-
-
-
-
-
-
+int32_t uwb_apiversion(void);
+uint32_t uwb_readdevid(void);
+uint32_t uwb_read32bitoffsetreg(int regFileID, int regOffset);
+void uwb_readfromdevice(uint32_t regFileID, uint16_t index, uint16_t length, uint8_t* buffer);
+int uwb_check_dev_id(void);
 
 
 

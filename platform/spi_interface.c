@@ -48,7 +48,6 @@ uint16_t dwt_calc_crc(const uint8_t* data, uint16_t len)
 
 
 
-//int writetospiwithcrc(uint16_t headerLength, const uint8_t *headerBuffer, uint16_t bodylength, const uint8_t *bodyBuffer, uint8_t crc8
 int writetospiwithcrc(uint16_t headerLength, const uint8_t *headerBuffer, uint32_t bodylength, const uint8_t *bodyBuffer)
 {
     uint8_t txBuffer[headerLength + bodylength + 2]; // 2 bytes for the CRC

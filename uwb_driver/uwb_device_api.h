@@ -1,7 +1,3 @@
-
-
-
-
 #ifndef _UWB_DEVICE_API_H_
 #define _UWB_DEVICE_API_H_
 

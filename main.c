@@ -15,8 +15,10 @@ int main()
 		return -1;
 	}
 
-	app_main();
-	//app_main(spi);
+	if(app_main()!=NULL)
+	{
+		perror("Error : Example failed\n");
+	}
 
 	spi_close(&spi);
 

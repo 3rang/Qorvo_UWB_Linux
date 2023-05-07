@@ -17,16 +17,16 @@ add_subdirectory(uwb_driver)
 
 if(NOT DEFINED EXAMPLE)
 	#set(EXAMPLE "ex_uwb_reading_dev_id" CACHE STRING "Name of the example subfolder to include")
-    set(EXAMPLE "ex_uwb_reading_dev" CACHE STRING "Name of the example subfolder to include")
+    set(EXAMPLE "read_device_id" CACHE STRING "Name of the example subfolder to include")
     message("Selected folder: ${EXAMPLE}")
 endif()
 
+file(GLOB EXAMPLE_FILE "example/${EXAMPLE}/*.c")
 
 # Set the source files for the main executable
 set(SOURCES
     main.c
-    #example/${EXAMPLE}/read_device_id.c
-    example/${EXAMPLE}/ex_uwb_reading_dev.c
+    ${EXAMPLE_FILE}
 )
 
 # Create the executable for the main program

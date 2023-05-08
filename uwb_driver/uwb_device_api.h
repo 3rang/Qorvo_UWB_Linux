@@ -22,9 +22,32 @@ extern "C" {
 
 
 /* */
-#define DWT_SUCCESS (0)
-#define DWT_ERROR   (-1)
+#define SUCCESS (0)
+#define ERROR   (-1)
 
+
+
+#define uwb_or8bitoffsetreg(addr, offset, or_val) uwb_modify8bitoffsetreg(addr, offset, -1, or_val)
+#define uwb_and8bitoffsetreg(addr, offset, and_val) uwb_modify8bitoffsetreg(addr, offset, and_val, 0)
+#define uwb_and_or8bitoffsetreg(addr,offset, and_val, or_val) uwb_modify8bitoffsetreg(addr,offset,and_val,or_val)
+#define uwb_set_bit_num_8bit_reg(addr,bit_num) uwb_modify8bitoffsetreg(addr,0,-1,DWT_BIT_MASK(bit_num))
+#define uwb_clr_bit_num_8bit_reg(addr,bit_num) uwb_modify8bitoffsetreg(addr,0,~DWT_BIT_MASK(bit_num),0)
+
+#define uwb_or16bitoffsetreg(addr, offset, or_val) uwb_modify16bitoffsetreg(addr, offset, -1, or_val)
+#define uwb_and16bitoffsetreg(addr, offset, and_val) uwb_modify16bitoffsetreg(addr, offset, and_val, 0)
+#define uwb_and_or16bitoffsetreg(addr,offset, and_val, or_val) uwb_modify16bitoffsetreg(addr,offset,and_val,or_val)
+#define uwb_set_bit_num_16bit_reg(addr,bit_num) uwb_modify16bitoffsetreg(addr,0,-1,DWT_BIT_MASK(bit_num))
+#define uwb_clr_bit_num_16bit_reg(addr,bit_num) uwb_modify16bitoffsetreg(addr,0,~DWT_BIT_MASK(bit_num),0)
+
+#define uwb_or32bitoffsetreg(addr, offset, or_val) uwb_modify32bitoffsetreg(addr, offset, -1, or_val)
+#define uwb_and32bitoffsetreg(addr, offset, and_val) uwb_modify32bitoffsetreg(addr, offset, and_val, 0)
+#define uwb_and_or32bitoffsetreg(addr,offset, and_val, or_val) uwb_modify32bitoffsetreg(addr,offset,and_val,or_val)
+#define uwb_set_bit_num_32bit_reg(addr,bit_num) uwb_modify32bitoffsetreg(addr,0,-1,DWT_BIT_MASK(bit_num))
+#define uwb_clr_bit_num_32bit_reg(addr,bit_num) uwb_modify32bitoffsetreg(addr,0,~DWT_BIT_MASK(bit_num),0)
+
+
+
+// DWM3000-EVK defined 
 
 #define DWT_A0_DEV_ID       (0xDECA0300)        //!< DW3000 MPW A0 (non PDOA) silicon device ID
 #define DWT_A0_PDOA_DEV_ID  (0xDECA0310)        //!< DW3000 MPW A0 (with PDOA) silicon device ID
@@ -33,9 +56,9 @@ extern "C" {
 #define DWT_C0_DEV_ID       (0xDECA0302)        //!< DW3000 MPW C0 (non PDOA) silicon device ID
 #define DWT_C0_PDOA_DEV_ID  (0xDECA0312)        //!< DW3000 MPW C0 (with PDOA) silicon device ID
 
-#define DELAY_20uUSec           (20)            /* Delay of 20uSec(measured 24uSec) */
-#define MAX_RETRIES_FOR_PLL     (6)
-#define MAX_RETRIES_FOR_PGF     (3)
+//#define DELAY_20uUSec           (20)            /* Delay of 20uSec(measured 24uSec) */
+//#define MAX_RETRIES_FOR_PLL     (6)
+//#define MAX_RETRIES_FOR_PGF     (3)
 
 typedef enum {
     AOA,
@@ -323,10 +346,10 @@ typedef struct
 } uwb_cb_data_t;
 
 // Call-back type for SPI read error event (if the DW3000 generated CRC does not match the one calculated by the dwt_generatecrc8 function)
-typedef void(*dwt_spierrcb_t)(void);
+typedef void(*uwb_spierrcb_t)(void);
 
 // Call-back type for all interrupt events
-typedef void (*dwt_cb_t)(const dwt_cb_data_t *);
+typedef void (*uwb_cb_t)(const uwb_cb_data_t *);
 
 
 #define SQRT_FACTOR             181 /*Factor of sqrt(2) for calculation*/
@@ -337,12 +360,13 @@ typedef void (*dwt_cb_t)(const dwt_cb_data_t *);
 #define HALF_MOD                (MOD_VALUE>>1)
 
 /*This Enum holds INT working options.*/
+
 typedef enum
 {
     DWT_DISABLE_INT=0,/*Disable these INT*/
     DWT_ENABLE_INT,/*Enable these INT*/
     DWT_ENABLE_INT_ONLY/*Enable only these INT*/
-} dwt_INT_options_e;
+} uwb_INT_options_e;
 
 
 /*This Enum holds the index for factor calculation.*/
@@ -355,7 +379,7 @@ typedef enum
     DWT_STS_LEN_512 =4,
     DWT_STS_LEN_1024=5,
     DWT_STS_LEN_2048=6
-} dwt_sts_lengths_e;
+} uwb_sts_lengths_e;
 
 #define GET_STS_REG_SET_VALUE(x)     ((uint16_t)1<<((x)+2))    /* Returns the value to set in CP_CFG0_ID for STS length. The x is the enum value from dwt_sts_lengths_e */
 
@@ -364,14 +388,14 @@ typedef enum
 {
     DWT_DGC_SEL_CH5=0,
     DWT_DGC_SEL_CH9
-} dwt_dgc_chan_sel;
+} uwb_dgc_chan_sel;
 
 /* Enum used for selecting location to load DGC data from */
 typedef enum
 {
     DWT_DGC_LOAD_FROM_SW=0,
     DWT_DGC_LOAD_FROM_OTP
-} dwt_dgc_load_location;
+} uwb_dgc_load_location;
 
 /*! ------------------------------------------------------------------------------------------------------------------
  * Structure typedef: dwt_config_t
@@ -392,9 +416,9 @@ typedef struct
     uint8_t phrRate;         //!< PHR rate {0x0 - standard DWT_PHRRATE_STD, 0x1 - at datarate DWT_PHRRATE_DTA}
     uint16_t sfdTO ;         //!< SFD timeout value (in symbols)
     uint8_t stsMode;         //!< STS mode (no STS, STS before PHR or STS after data)
-    dwt_sts_lengths_e stsLength;    //!< STS length (the allowed values are listed in dwt_sts_lengths_e
+    uwb_sts_lengths_e stsLength;    //!< STS length (the allowed values are listed in dwt_sts_lengths_e
     uint8_t pdoaMode;        //!< PDOA mode
-} dwt_config_t ;
+} uwb_config_t ;
 
 
 typedef struct
@@ -407,7 +431,7 @@ typedef struct
     //7:0       TX_DATA_PWR
     uint32_t  power;
     uint16_t  PGcount;
-} dwt_txconfig_t ;
+} uwb_txconfig_t ;
 
 
 typedef struct
@@ -453,7 +477,7 @@ typedef struct
     uint16_t      sts2FpIndex;     // First path index for STS
     uint16_t      sts2AccumCount;  // Number accumulated symbols for STS
 
-} dwt_rxdiag_t ;
+} uwb_rxdiag_t ;
 
 
 typedef struct
@@ -473,7 +497,7 @@ typedef struct
     uint8_t  CRCE;                   //8-bit SPI CRC error events
     uint16_t PREJ;                   //12-bit number of Preamble rejection events
 
-} dwt_deviceentcnts_t ;
+} uwb_deviceentcnts_t ;
 
 /********************************************************************************************************************/
 /*                                                AES BLOCK                                                         */
@@ -485,33 +509,33 @@ typedef struct
 typedef enum {
     MIC_0 = 0,
     MIC_4, MIC_6, MIC_8, MIC_10, MIC_12, MIC_14, MIC_16
-}dwt_mic_size_e;
+}uwb_mic_size_e;
 
 /* Key size definition */
 typedef enum {
     AES_KEY_128bit = 0,
     AES_KEY_192bit = 1,
     AES_KEY_256bit = 2
-}dwt_aes_key_size_e;
+}uwb_aes_key_size_e;
 
 /* Load key from RAM selection */
 typedef enum {
     AES_KEY_No_Load = 0,
     AES_KEY_Load
-}dwt_aes_key_load_e;
+}uwb_aes_key_load_e;
 
 /* Key source - RAM or registers */
 typedef enum {
     AES_KEY_Src_Register = 0,    /* Use AES KEY from registers */
     AES_KEY_Src_RAMorOTP         /* Use AES KEY from RAM or OTP (depending if AES_key_OTP set),
                                     AES_KEY_Load needs to be set as well */
-}dwt_aes_key_src_e;
+}uwb_aes_key_src_e;
 
 /* Operation selection */
 typedef enum {
     AES_Encrypt = 0,
     AES_Decrypt
-}dwt_aes_mode_e;
+}uwb_aes_mode_e;
 
 /* This defines the source port for encrypted/unencrypted data */
 typedef enum {
@@ -519,7 +543,7 @@ typedef enum {
     AES_Src_Rx_buf_0,
     AES_Src_Rx_buf_1,
     AES_Src_Tx_buf
-}dwt_aes_src_port_e;
+}uwb_aes_src_port_e;
 
 /* This defines the dest port for encrypted/unencrypted data */
 typedef enum {
@@ -528,7 +552,7 @@ typedef enum {
     AES_Dst_Rx_buf_1,
     AES_Dst_Tx_buf,
     AES_Dst_STS_key
-}dwt_aes_dst_port_e;
+}uwb_aes_dst_port_e;
 
 /* storage for 128/192/256-bit key */
 typedef struct {
@@ -540,31 +564,31 @@ typedef struct {
       uint32_t key5;
       uint32_t key6;
       uint32_t key7;
-}dwt_aes_key_t;
+}uwb_aes_key_t;
 
 typedef enum
 {
     AES_core_type_GCM=0,    /* Core type GCM */
     AES_core_type_CCM       /* Core type CCM */
-}dwt_aes_core_type_e;
+}uwb_aes_core_type_e;
 
 
 typedef enum
 {
     AES_key_RAM =0,     /* Use the AES KEY from RAM */
     AES_key_OTP         /* Use the AES KEY from OTP, key_load needs to match -> needs to be set to AES_KEY_Src_Ram */
-}dwt_aes_key_otp_type_e;
+}uwb_aes_key_otp_type_e;
 
 typedef struct {
-    dwt_aes_key_otp_type_e  aes_key_otp_type; //!< Using KEY from OTP or RAM, if this is set to AES_key_OTP, KEY from OTP is used
-    dwt_aes_core_type_e     aes_core_type;    //!< Core type GCM or CCM*
-    dwt_mic_size_e          mic;              //!< Message integrity code size
-    dwt_aes_key_src_e       key_src;          //!< Location of the key: either as programmed in registers(128 bit) or in the RAM or in the OTP
-    dwt_aes_key_load_e      key_load;         //!< Loads key from RAM or uses KEY from the registers
+    uwb_aes_key_otp_type_e  aes_key_otp_type; //!< Using KEY from OTP or RAM, if this is set to AES_key_OTP, KEY from OTP is used
+    uwb_aes_core_type_e     aes_core_type;    //!< Core type GCM or CCM*
+    uwb_mic_size_e          mic;              //!< Message integrity code size
+    uwb_aes_key_src_e       key_src;          //!< Location of the key: either as programmed in registers(128 bit) or in the RAM or in the OTP
+    uwb_aes_key_load_e      key_load;         //!< Loads key from RAM or uses KEY from the registers
     uint8_t                 key_addr;         //!< Address offset of AES key when using AES key in RAM
-    dwt_aes_key_size_e      key_size;         //!< AES key length configuration corresponding to AES_KEY_128/192/256bit
-    dwt_aes_mode_e          mode;             //!< Operation type encrypt/decrypt
-} dwt_aes_config_t ;
+    uwb_aes_key_size_e      key_size;         //!< AES key length configuration corresponding to AES_KEY_128/192/256bit
+    uwb_aes_mode_e          mode;             //!< Operation type encrypt/decrypt
+} uwb_aes_config_t ;
 
 typedef struct {
     uint8_t             *nonce;      //!< Pointer to the nonce
@@ -572,11 +596,11 @@ typedef struct {
     uint8_t             *payload;    //!< Pointer to payload (this is encrypted/decrypted)
     uint8_t             header_len;  //!< Header size
     uint16_t            payload_len; //!< Payload size
-    dwt_aes_src_port_e  src_port;    //!< Source port
-    dwt_aes_dst_port_e  dst_port;    //!< Dest port
-    dwt_aes_mode_e      mode;        //!< Encryption or decryption
+    uwb_aes_src_port_e  src_port;    //!< Source port
+    uwb_aes_dst_port_e  dst_port;    //!< Dest port
+    uwb_aes_mode_e      mode;        //!< Encryption or decryption
     uint8_t             mic_size;    //!< tag_size;
-}dwt_aes_job_t;
+}uwb_aes_job_t;
 
 /* storage for 128-bit STS CP key */
 typedef struct {
@@ -584,7 +608,7 @@ typedef struct {
     uint32_t key1;
     uint32_t key2;
     uint32_t key3;
-}dwt_sts_cp_key_t;
+}uwb_sts_cp_key_t;
 
 /* storage for 128-bit STS CP IV (nonce) */
 typedef struct {
@@ -592,7 +616,7 @@ typedef struct {
     uint32_t iv1;
     uint32_t iv2;
     uint32_t iv3;
-}dwt_sts_cp_iv_t;
+}uwb_sts_cp_iv_t;
 
 
 #define ERROR_DATA_SIZE      (-1)
@@ -606,13 +630,13 @@ typedef enum
 {
     DBL_BUF_STATE_EN=0,/*Double buffer enabled*/
     DBL_BUF_STATE_DIS/*Double buffer disabled*/
-}dwt_dbl_buff_state_e;
+}uwb_dbl_buff_state_e;
 
 typedef enum
 {
     DBL_BUF_MODE_AUTO=0,/*Automatic*/
     DBL_BUF_MODE_MAN/*Manual*/
-}dwt_dbl_buff_mode_e;
+}uwb_dbl_buff_mode_e;
 
 /*
 	Lookup table default values for channel 5
@@ -626,7 +650,7 @@ typedef enum
     CH5_DGC_LUT_4 = 0x1cf36,
     CH5_DGC_LUT_5 = 0x1cfb5,
     CH5_DGC_LUT_6 = 0x1cff5
-} dwt_configmrxlut_ch5_e;
+} uwb_configmrxlut_ch5_e;
 
 /*
 	Lookup table default values for channel 9
@@ -640,7 +664,7 @@ typedef enum
     CH9_DGC_LUT_4 = 0x2af7d,
     CH9_DGC_LUT_5 = 0x2afb5,
     CH9_DGC_LUT_6 = 0x2afb5
-} dwt_configmrxlut_ch9_e;
+} uwb_configmrxlut_ch9_e;
 
 #define DBL_BUFF_OFF             0x0
 #define DBL_BUFF_ACCESS_BUFFER_0 0x1
@@ -657,6 +681,7 @@ uint32_t uwb_readdevid(void);
 uint32_t uwb_read32bitoffsetreg(int regFileID, int regOffset);
 void uwb_readfromdevice(uint32_t regFileID, uint16_t index, uint16_t length, uint8_t* buffer);
 int uwb_check_dev_id(void);
+uint8_t uwb_generatecrc8(const uint8_t* byteArray, int len, uint8_t crcRemainderInit);
 
 
 

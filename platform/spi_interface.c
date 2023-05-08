@@ -48,7 +48,7 @@ uint16_t dwt_calc_crc(const uint8_t* data, uint16_t len)
 
 
 
-int writetospiwithcrc(uint16_t headerLength, const uint8_t *headerBuffer, uint32_t bodylength, const uint8_t *bodyBuffer)
+int writetospiwithcrc(uint16_t headerLength, const uint8_t *headerBuffer, uint16_t bodylength, const uint8_t *bodyBuffer,uint8_t crc8)
 {
     uint8_t txBuffer[headerLength + bodylength + 2]; // 2 bytes for the CRC
     uint8_t rxBuffer[headerLength + bodylength + 2]; // 2 bytes for the CRC
@@ -56,9 +56,8 @@ int writetospiwithcrc(uint16_t headerLength, const uint8_t *headerBuffer, uint32
     memcpy(txBuffer, headerBuffer, headerLength);
     memcpy(txBuffer + headerLength, bodyBuffer, bodylength);
 
-    uint16_t crc = dwt_calc_crc(txBuffer, headerLength + bodylength);
-    txBuffer[headerLength + bodylength] = (crc & 0xFF);
-    txBuffer[headerLength + bodylength + 1] = ((crc >> 8) & 0xFF);
+    txBuffer[headerLength + bodylength] = (crc8 & 0xFF);
+    txBuffer[headerLength + bodylength + 1] = ((crc8 >> 8) & 0xFF);
 
     spi_transfer(&spi, txBuffer, rxBuffer, headerLength + bodylength + 2);
 
@@ -81,14 +80,16 @@ int writetospi(uint16_t headerLength, const uint8_t *headerBuffer, uint16_t body
 // Wrapper function for readfromspi
 int readfromspi(uint16_t headerLength, const uint8_t *headerBuffer, uint16_t readlength, uint8_t *readBuffer)
 {
-    uint8_t txBuffer[headerLength];
+
+
+    uint8_t txBuffer[headerLength+ readlength];
     uint8_t rxBuffer[headerLength + readlength];
 
+    memset(txBuffer, 0, headerLength + readlength);
     memcpy(txBuffer, headerBuffer, headerLength);
-    txBuffer[0] |= 0x80; // Set the read flag
 
     spi_transfer(&spi, txBuffer, rxBuffer, headerLength + readlength);
-
+	
     memcpy(readBuffer, rxBuffer + headerLength, readlength);
 
     return 0;
